@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Assembly Cơ Bản</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .text-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+            text-align: left;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Casio Hacking Community</h1>
+        <span class="menu-toggle">☰ Menu</span>
+    </header>
+    <main>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="documents.html">Tài Liệu</a></li>
+                <li><a href="tools.html">Công Cụ Hỗ trợ</a></li>
+            </ul>
+        </nav>
+        <div class="overlay"></div>
+        <div class="content">
+                <h2>Assembly là gì?</h2>
+                <p>Assembly là một ngôn ngữ lập trình cấp thấp, gần gũi với mã máy của vi xử lý. Nó cho phép lập trình viên viết mã gần với cách mà máy tính thực sự hiểu và thực hiện các lệnh. Assembly thường được sử dụng trong các ứng dụng yêu cầu hiệu suất cao hoặc khi cần truy cập trực tiếp vào phần cứng.</p>
+                <p>Assembly không phải là một ngôn ngữ lập trình độc lập mà là một tập hợp các lệnh tương ứng với mã máy của một kiến trúc vi xử lý cụ thể. Mỗi loại vi xử lý (như x86, ARM, MIPS) có một tập lệnh Assembly riêng. Việc viết mã Assembly yêu cầu hiểu biết sâu sắc về kiến trúc phần cứng và cách hoạt động của máy tính.</p>
+                <h2>Tại sao nên học Assembly?</h2>
+                <p>Học Assembly có thể mang lại nhiều lợi ích, bao gồm:</p>
+                <ul>
+                    <li><strong>Hiểu rõ hơn về cách hoạt động của máy tính:</strong> Assembly giúp bạn hiểu cách mà máy tính thực hiện các lệnh và quản lý bộ nhớ.</li>
+                    <li><strong>Tối ưu hóa hiệu suất:</strong> Việc viết mã Assembly cho phép bạn tối ưu hóa hiệu suất của ứng dụng, đặc biệt trong các ứng dụng yêu cầu tốc độ cao.</li>
+                    <li><strong>Truy cập trực tiếp vào phần cứng:</strong> Assembly cho phép bạn tương tác trực tiếp với phần cứng, điều này rất hữu ích trong lập trình nhúng và phát triển hệ điều hành.</li>
+                    <li><strong>Phát triển kỹ năng lập trình:</strong> Học Assembly giúp bạn phát triển kỹ năng lập trình và tư duy logic, điều này có thể áp dụng cho các ngôn ngữ lập trình khác.</li>
+                </ul>
+                <h2>Các lệnh cơ bản trên Assembly</h2>
+                <p>Assembly cung cấp nhiều lệnh cơ bản để thực hiện các tác vụ khác nhau. Dưới đây là một số lệnh cơ bản mà bạn nên biết:</p>
+                <ul>
+                    <li><strong>In ra một chuỗi:</strong></li>
+                    <div class="text-box" style="text-align: left;"><pre><code>mov eax, 1 ; syscall: write</code></pre></div>
+                    <li><strong>Lấy vào một chuỗi:</strong></li>
+                    <div class="text-box" style="text-align: left;"><pre><code>mov eax, 0 ; syscall: read</code></pre></div>
+                </ul>
+                <p>Ví dụ:</p>
+                <div class="text-box" style="text-align: left;">
+                <pre><code>section .text
+global _start
+
+_start:
+    ; In ra chuỗi
+    mov eax, 1 ; syscall: write
+    mov ebx, 1 ; file descriptor: stdout
+    mov ecx, msg ; địa chỉ chuỗi
+    mov edx, len ; độ dài chuỗi
+    int 0x80 ; gọi hệ thống
+
+    ; Kết thúc chương trình
+    mov eax, 1 ; syscall: exit
+    xor ebx, ebx ; mã thoát: 0
+    int 0x80 ; gọi hệ thống</code></pre>
+                </div>
+                <p>Để chạy mã Assembly, bạn cần cài đặt một trình biên dịch Assembly trên máy tính của mình. Một số trình biên dịch phổ biến bao gồm NASM và MASM. Sau khi cài đặt, bạn có thể biên dịch mã Assembly thành mã máy và chạy nó trên hệ điều hành của mình.</p>
+                <h2>Cách lưu biến trong Assembly</h2>
+                <p>Trong Assembly, bạn có thể lưu trữ giá trị trong biến bằng cách sử dụng các thanh ghi hoặc vùng nhớ. Dưới đây là một ví dụ về cách lưu biến trong Assembly:</p>
+                <div class="text-box" style="text-align: left;">
+                <pre><code>section .data
+x db 10 ; lưu một số nguyên
+name db "Code for Casio", 0 ; lưu một chuỗi
+pi dd 3.14 ; lưu một số thực
+numbers db 1, 2, 3, 4 ; lưu một danh sách</code></pre>
+                </div>
+                <p>Trong Assembly, bạn cần chỉ định kiểu dữ liệu của biến khi khai báo. Các kiểu dữ liệu phổ biến bao gồm db (byte), dw (word), dd (double word) và dq (quad word).</p>
+                <h2>Cách sử dụng thuật toán đơn giản</h2>
+                <p>Assembly cung cấp nhiều thuật toán và cấu trúc dữ liệu khác nhau để giúp bạn giải quyết các bài toán lập trình. Một số thuật toán đơn giản mà bạn có thể sử dụng bao gồm:</p>
+                <ul>
+                    <li><strong>Sắp xếp:</strong> Sắp xếp danh sách hoặc mảng theo thứ tự tăng dần hoặc giảm dần.</li>
+                    <li><strong>Tìm kiếm:</strong> Tìm kiếm một giá trị trong danh sách hoặc mảng.</li>
+                    <li><strong>Tính toán:</strong> Thực hiện các phép toán số học như cộng, trừ, nhân, chia.</li>
+                    <li><strong>Đệ quy:</strong> Sử dụng đệ quy để giải quyết các bài toán phức tạp hơn.</li>
+                </ul>
+                <p>các thuật toán này có thể được sử dụng trong nhiều bài toán khác nhau, từ đơn giản đến phức tạp.</p>
+                <p>Đây là ví dụ đếm số từ 1 đến 10:</p>
+                <div class="text-box" style="text-align: left;">
+                <pre><code>section .text
+global _start
+
+_start:
+    ; Tính tổng của các số từ 1 đến 10
+    mov eax, 0 ; khởi tạo tổng
+    mov ecx, 1 ; khởi tạo biến đếm
+
+loop_start:
+    add eax, ecx ; cộng biến đếm vào tổng
+    inc ecx ; tăng biến đếm
+    cmp ecx, 11 ; so sánh với 10
+     jl loop_start ; nhỏ hơn 10 thì lặp lại
+
+    ; In ra kết quả
+    mov eax, 1 ; syscall: write
+    mov ebx, 1 ; file descriptor: stdout
+    mov ecx, eax ; địa chỉ chuỗi (tổng)
+    mov edx, len ; độ dài chuỗi
+    int 0x80 ; gọi hệ thống
+
+    ; Kết thúc chương trình
+    mov eax, 1 ; syscall: exit
+    xor ebx, ebx ; mã thoát: 0
+    int 0x80 ; gọi hệ thống</code></pre>
+                </div>
+                <p>Trong ví dụ trên, chúng ta sử dụng vòng lặp để lặp qua các số từ 1 đến 10 và cộng dồn vào biến tổng. Cuối cùng, chúng ta in ra kết quả.</p>
+                <h2>So sánh trong Assembly</h2>
+                <p>Trong Assembly, bạn có thể sử dụng các toán tử so sánh để so sánh các giá trị. Dưới đây là một số toán tử so sánh phổ biến:</p>
+                <ul>
+                    <li><code>==</code>: So sánh bằng</li>
+                    <li><code>!=</code>: So sánh khác</li>
+                    <li><code>&gt;</code>: Lớn hơn</li>
+                    <li><code>&lt;</code>: Nhỏ hơn</li>
+                    <li><code>&gt;=</code>: Lớn hơn hoặc bằng</li>
+                    <li><code>&lt;=</code>: Nhỏ hơn hoặc bằng</li>
+                </ul>
+                <p>Ví dụ:</p>
+                <div class="text-box" style="text-align: left;">
+                <pre><code>section .text
+global _start
+
+_start
+  ; So sánh hai biến
+  mov eax, 5 ; gán giá trị cho biến 
+  mov ebx, 10 ; gán giá trị cho biến 
+  cmp eax, ebx ; so sánh a và 
+  jl a_less_b ; a < b thì nhảy đến a_less_b
+  jg a_greater_b ; a > b thì nhảy đến a_greater_b
+
+a_less_b:
+  ; in ra "a nhỏ hơn b"
+  jmp end
+
+a_greater_b:
+  ; in ra "a lớn hơn b"
+  jmp end
+
+end:
+  ; Kết thúc chương trình
+  mov eax, 1 ; syscall: exit
+  xor ebx, ebx ; mã thoát: 0
+  int 0x80 ; gọi hệ thống</code></pre>
+                </div>
+                <p>Trong ví dụ trên, chúng ta sử dụng các toán tử so sánh để kiểm tra mối quan hệ giữa hai biến <code>a</code> và <code>b</code>. Dựa vào kết quả so sánh, chúng ta in ra thông báo tương ứng.</p>
+                <h2>Cách tạo hàm trong Assembly</h2>
+                <p>Để tạo một hàm trong Assembly, bạn cần định nghĩa tên hàm và các tham số (nếu có). Dưới đây là cú pháp cơ bản để tạo một hàm:</p>
+                <div class="text-box" style="text-align: left;">
+                <pre><code>section .text
+global my_function
+
+my_function:
+    ; Nội dung hàm; 
+    Thực hiện các tác vụ ở đây
+    ret ; trả về từ hàm</code></pre>
+                </div>
+                <p>Ví dụ:</p>
+                <div class="text-box" style="text-align: left;">
+                <pre><code>section .text
+global add_numbers
+
+add_numbers:
+    ; Hàm tính tổng hai số
+    mov eax, [esp + 4] ; lấy tham số đầu tiên
+    add eax, [esp + 8] ; cộng với tham số thứ hai
+    ret ; trả về từ hàm</code></pre>
+                </div>
+                <p>Trong ví dụ trên, chúng ta định nghĩa một hàm <code>add_numbers</code> để tính tổng hai số. Sau đó, chúng ta có thể gọi hàm này từ các phần khác của mã Assembly.</p>
+                <p>Hy vọng rằng bài viết này đã giúp bạn hiểu rõ hơn về Assembly và cách sử dụng nó trong lập trình.</p>
+    </main>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

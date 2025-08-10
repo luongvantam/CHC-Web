@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Làm Quen Với ROP</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .text-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+            text-align: left;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Casio Hacking Community</h1>
+        <span class="menu-toggle">☰ Menu</span>
+    </header>
+    <main>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="documents.html">Tài Liệu</a></li>
+                <li><a href="tools.html">Công Cụ Hỗ trợ</a></li>
+            </ul>
+        </nav>
+        <div class="overlay"></div>
+        <div class="content">
+                <h2>ROP là gì?</h2>
+                <p>ROP (Return Oriented Programming) là một kỹ thuật tấn công trong lĩnh vực bảo mật máy tính, đặc biệt là trong khai thác lỗ hổng bảo mật. Kỹ thuật này cho phép kẻ tấn công thực thi mã tùy ý mà không cần phải ghi đè lên mã trong bộ nhớ. Thay vào đó, ROP sử dụng các đoạn mã nhỏ (gọi là "gadgets") đã tồn tại trong chương trình hoặc thư viện mà ứng dụng đang sử dụng.</p>
+                <p>ROP thường được sử dụng để vượt qua các biện pháp bảo vệ như DEP (Data Execution Prevention) và ASLR (Address Space Layout Randomization). Bằng cách kết hợp nhiều gadgets, kẻ tấn công có thể tạo ra một chuỗi lệnh thực thi mà không cần phải ghi mã mới vào bộ nhớ.</p>
+                <p>Để thực hiện tấn công ROP, kẻ tấn công cần phải có kiến thức sâu về cấu trúc bộ nhớ của ứng dụng và cách mà các gadgets hoạt động. Kỹ thuật này thường được sử dụng trong các cuộc tấn công khai thác lỗ hổng bảo mật trong phần mềm.</p>
+                <h2>Cách hoạt động của ROP</h2>
+                <p>ROP hoạt động bằng cách sử dụng các gadgets, là những đoạn mã nhỏ mà kẻ tấn công có thể kết hợp lại để thực hiện các tác vụ mong muốn. Mỗi gadget thường kết thúc bằng một lệnh "return", cho phép điều khiển quay lại địa chỉ tiếp theo trong chuỗi gadgets.</p>
+                <p>Quá trình tấn công ROP thường bao gồm các bước sau:</p>
+                <ol>
+                    <li><strong>Xác định gadgets:</strong> Kẻ tấn công tìm kiếm các gadgets trong mã nguồn của ứng dụng hoặc thư viện mà ứng dụng đang sử dụng. Các gadgets này thường là những đoạn mã ngắn mà thực hiện các tác vụ cụ thể.</li>
+                    <li><strong>Tạo chuỗi ROP:</strong> Kẻ tấn công kết hợp các gadgets lại với nhau để tạo thành một chuỗi lệnh thực thi. Mỗi gadget sẽ trả về địa chỉ của gadget tiếp theo trong chuỗi.</li>
+                    <li><strong>Thực hiện tấn công:</strong> Kẻ tấn công sẽ ghi đè lên địa chỉ quay lại (return address) trong ngăn xếp (stack) bằng địa chỉ của gadget đầu tiên trong chuỗi ROP. Khi chương trình thực thi, nó sẽ lần lượt thực hiện các gadgets trong chuỗi.</li>
+                    <li><strong>Thực hiện mã tùy ý:</strong> Bằng cách kết hợp các gadgets, kẻ tấn công có thể thực hiện mã tùy ý mà không cần phải ghi đè lên mã trong bộ nhớ.</li>
+                </ol>
+                <p>ROP là một kỹ thuật tấn công mạnh mẽ và khó phát hiện, vì nó không yêu cầu kẻ tấn công phải ghi mã mới vào bộ nhớ. Thay vào đó, nó tận dụng các đoạn mã đã tồn tại trong ứng dụng để thực hiện các tác vụ mong muốn.</p>
+                <h2>Ví dụ về ROP</h2>
+                <p>Dưới đây là một ví dụ đơn giản về cách hoạt động của ROP:</p>
+                <div class="text-box" style="text-align: left;">
+                    <pre><code>
+// Ví dụ về ROP bằng ngôn ngữ C
+// Gadget 1: Thực hiện một phép toán cộng
+int gadget1(int a, int b) {
+    return a + b;
+}
+
+// Gadget 2: Thực hiện một phép toán nhân
+int gadget2(int a, int b) {
+    return a * b;
+}
+
+// Gadget 3: In ra kết quả
+void gadget3(int result) {
+    printf("Kết quả: %d\n", result);
+}
+
+// Tạo chuỗi ROP
+void rop_chain() {
+    int a = 5;
+    int b = 10;
+
+    // Kết hợp các gadgets lại với nhau
+    int result1 = gadget1(a, b); // Thực hiện phép cộng
+    int result2 = gadget2(result1, b); // Thực hiện phép nhân với b
+
+    gadget3(result2); // In ra kết quả cuối cùng
+}
+                    </code></pre>
+                </div>
+                <p>Trong ví dụ trên, chúng ta có ba gadgets: gadget1 thực hiện phép cộng, gadget2 thực hiện phép nhân và gadget3 in ra kết quả. Chúng ta kết hợp các gadgets lại với nhau để tạo thành một chuỗi ROP và thực hiện các tác vụ mong muốn.</p>
+                <h2>Phòng ngừa ROP</h2>
+                <p>Để phòng ngừa tấn công ROP, các biện pháp bảo vệ sau đây có thể được áp dụng:</p>
+                <ul>
+                    <li><strong>DEP (Data Execution Prevention):</strong> Ngăn chặn việc thực thi mã trong các vùng bộ nhớ không được phép.</li>
+                    <li><strong>ASLR (Address Space Layout Randomization):</strong> Ngẫu nhiên hóa địa chỉ của các đoạn mã trong bộ nhớ để làm khó khăn cho việc xác định gadgets.</li>
+                    <li><strong>Kiểm tra tính toàn vẹn của mã:</strong> Sử dụng các công cụ kiểm tra tính toàn vẹn để phát hiện các thay đổi bất thường trong mã nguồn.</li>
+                    <li><strong>Phát hiện tấn công:</strong> Sử dụng các công cụ phát hiện tấn công để giám sát và phát hiện các hành vi bất thường trong ứng dụng.</li>
+                </ul>
+                <p>Những biện pháp này có thể giúp giảm thiểu nguy cơ tấn công ROP và bảo vệ ứng dụng khỏi các lỗ hổng bảo mật.</p>
+                <h2>Tài liệu tham khảo</h2>
+                <ul>
+                    <li><a href="https://www.owasp.org/index.php/Return-oriented_programming" target="_blank">OWASP - Return-oriented programming</a></li>
+                    <li><a href="https://www.cvedetails.com/cve/CVE-2014-0160/" target="_blank">CVE Details - CVE-2014-0160</a></li>
+                    <li><a href="https://www.exploit-db.com/exploits/35000" target="_blank">Exploit DB - ROP Exploit</a></li>
+                    <li><a href="https://www.securityfocus.com/bid/70000" target="_blank">Security Focus - ROP Vulnerability</a></li>
+                    <li><a href="https://www.cisecurity.org/white-papers/return-oriented-programming-rop-exploitation/" target="_blank">CISecurity - Return-oriented programming (ROP) exploitation</a></li>
+                </ul>
+                <p>Hy vọng rằng bài viết này đã giúp bạn hiểu rõ hơn về ROP và cách hoạt động của nó trong lĩnh vực bảo mật máy tính.</p>
+    </main>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

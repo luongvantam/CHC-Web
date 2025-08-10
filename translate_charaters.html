@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch Hex Sang Token</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Casio Hacking Community</h1>
+        <span class="menu-toggle">☰ Menu</span>
+    </header>
+    <main>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="documents.html">Tài Liệu</a></li>
+                <li><a href="tools.html">Công Cụ Hỗ trợ</a></li>
+            </ul>
+        </nav>
+        <div class="overlay"></div>
+        <div class="content" style="margin-left: 5%;">
+        <label for="hexInput">Nhập hex:</label><br>
+        <input type="text" id="hexInput" placeholder="Nhập hex tại đây" onkeydown="h2t(document.getElementById('tableSelect').value);h2c(document.getElementById('tableSelect').value)">
+        <select id="tableSelect">
+            <option value="fx580vnx">Bảng fx580vnx</option>
+            <option value="fx880btg">Bảng fx880btg</option>
+        </select>
+        <button onclick="h2t(document.getElementById('tableSelect').value);h2c(document.getElementById('tableSelect').value)">Dịch</button>
+        <hr>
+        <div class="text-box" style="text-align: left;">
+            <label>Kết Quả Token:</label>
+            <textarea id="OutputToken" readonly style="white-space: pre-wrap; margin-top: 10px; text-align: left; height: 100px;"></textarea>
+            <label>Kết Quả Char:</label>
+            <textarea id="OutputChar" readonly style="white-space: pre-wrap; margin-top: 10px; text-align: left; height: 100px;"></textarea>
+        </div>
+        <hr>
+        </div>
+    </main>
+    <script>
+        function TableTokenfx580vnx() {
+            const table = [
+                ["<00>", "<01>", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@"],
+                ["@", "@", "@", "@", "@", "@", "@", "@", "@", "▯", "@", "@", "@", "@", "@", "@"],
+                ["𝒊", "e", "𝜋", ":", "$", "?", "@", "@", "@", "@", "@", "@", ",", "x10", ".", "@"],
+                ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝗔", "𝗕", "𝗖", "𝗗", "𝗘", "𝗙"],
+                ["M","Ans","A","B","C","D","E","F","𝒙","𝒚","PreAns","𝒛","𝜃","@","@","@"],
+                ["∑(","∫(","d/d𝒙(","∏(","@","@","@","@","Min(","Max(","Mean(Sum(","@","@","@","@"],
+                ["(","P(","Q(","R(","Not(","Neg(","Conjg(","Arg(","Abs(","Rnd(","Det(","Trn(","sinh(","cosh(","tanh(","sinh⁻¹("],
+                ["cosh⁻¹(", "tanh⁻¹(", "e^(", "10^(", "√(", "ln(", "³√(", "sin(", "cos(", "tan(", "sin⁻¹(", "cos⁻¹(", "tan⁻¹(", "log(", "Pol(", "Rec("],
+                ["@","@","@","Int(","Intg(","Ref(","Rref(","RanInt#(","GCD(","LCM(","RndFix(","@","@","@","@","ReP("],
+                ["ImP(", "Identity(", "UnitV(", "Angle(", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@"],
+                ["or", "xor", "xnor", "and", "@", "=", "+", "−", "×", "÷", "÷R", "⋅", "∠", "𝗣", "𝗖", "@"],
+                ["@", "@", "@", "@", "@", "@", "@", "@", "", "", "₁", "₂", "@", "@", "@", "@"],
+                ["-<âm>", "b", "o", "d", "h", "@", "@", "@", "⌟", "^(", "x√(", "@", "@", "@", "@", "@"],
+                [")", "▸t", "▸a+b𝒊", "▸r∠𝜃", "⁻¹", "²", "³", "%", "!", "°", "ʳ", "ᵍ", "▫", "𝐄", "𝐏", "𝐓"],
+                ["𝐆", "𝐌", "𝐤", "𝐦", "𝝁", "𝐧", "𝐩", "𝐟", "@", "▸Simp ", "@", "@", "@", "@", "@", "@"],
+                ["<F0>", "<F1>", "<F2>", "<F3>", "<F4>", "<F5>", "<F6>", "<F7>", "<F8>", "<F9>", "<FA>", "<FB>", "<FC>", "<FD>", "<FE>", "<FF>"],
+            ];
+            return CreateMappingToken(table);
+        }
+
+        function TableTokenfx880btg() {
+            const table = [
+                ["<00>", "<01>", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@"],
+                ["@", "@", "@", "@", "@", "@", "@", "@", "@", "▯", "@", "@", "@", "@", "@", "@"],
+                ["𝒊", "e", "𝜋", ":", "$", "?", "@", "@", "@", "@", "@", "@", ",", "x10", ".", "@"],
+                ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝗔", "𝗕", "𝗖", "𝗗", "𝗘", "𝗙"],
+                ["Ans","A","B","C","D","E","F","𝒙","𝒚","𝒛","PreAns","𝜃","@","@","@","@"],
+                ["∑(","∫(","d/d𝒙(","∏(","@","@","@","@","Min(","Max(","Mean(Sum(","@","@","@","@"],
+                ["(","P(","Q(","R(","Not(","Neg(","Conjg(","Arg(","Abs(","Rnd(","Det(","Trn(","sinh(","cosh(","tanh(","sinh⁻¹("],
+                ["cosh⁻¹(", "tanh⁻¹(", "e^(", "10^(", "√(", "ln(", "³√(", "sin(", "cos(", "tan(", "sin⁻¹(", "cos⁻¹(", "tan⁻¹(", "log(", "Pol(", "Rec("],
+                ["@","@","@","Int(","Intg(","Ref(","Rref(","RanInt#(","GCD(","LCM(","RndFix(","@","@","@","@","ReP("],
+                ["ImP(", "Identity(", "UnitV(", "Angle(", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@", "@"],
+                ["or", "xor", "xnor", "and", "@", "=", "+", "−", "×", "÷", "÷R", "⋅", "∠", "𝗣", "𝗖", "@"],
+                ["@", "@", "@", "@", "@", "@", "@", "@", "", "", "₁", "₂", "@", "@", "@", "@"],
+                ["-<âm>", "b", "o", "d", "h", "@", "@", "@", "⌟", "^(", "x√(", "@", "@", "@", "@", "@"],
+                [")", "▸t", "▸a+b𝒊", "▸r∠𝜃", "⁻¹", "²", "³", "%", "!", "°", "ʳ", "ᵍ", "▫", "𝐄", "𝐏", "𝐓"],
+                ["𝐆", "𝐌", "𝐤", "𝐦", "𝝁", "𝐧", "𝐩", "𝐟", "@", "▸Simp ", "@", "@", "@", "", "", ""],
+                ["<F0>", "<F1>", "<F2>", "<F3>", "<F4>", "<F5>", "<F6>", "<F7>", "<F8>", "<F9>", "<FA>", "<FB>", "<FC>", "<FD>", "<FE>", "<FF>"],
+            ];
+            return CreateMappingToken(table);
+        }
+
+        function TableCharfx580vnx() {
+            const table = [
+                ["�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�"],
+                ["𝒙","𝒚","𝒛","…","▲","▼","▸","₋","$","◁","&","𝑡","ᴛ","ₜ","ₕ","₅"],
+                [" ","!",'"',"#","×","%","÷","'","(",")","⋅","+",",","-",".","/"],
+                ["0","1","2","3","4","5","6","7","8","9",":",";","<","=",">","?"],
+                ["@","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"],
+                ["P","Q","R","S","T","U","V","W","X","Y","Z","[","▫","]","^","_"],
+                ["−","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"],
+                ["p","q","r","s","t","u","v","w","x","y","z","{","|","}","~","├"],
+                ["𝒊","𝒆","","","","°","ʳ","ᵍ","∠","","","","","→","∏","⇒"],
+                ["","","","⌟","≤","≠","≥","","√","∫","ᴀ","ʙ","ᴄ","ₙ","▶","◀"],
+                ["⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹","","","","₍","₎",""],
+                ["₀","₁","₂","","ꜰ","ɴ","ᴘ","","𝗔","𝗕","𝗖","𝗗","𝗘","𝗙","𝗣","▷"],
+                ["∑","𝛼","𝛾","𝜀","𝜃","𝜆","𝜇","𝜋","𝜎","𝜙","ℓ","ℏ","▮","▯","₃","＿"],
+                ["𝐟","𝐩","𝐧","𝝁","𝐦","𝐤","𝐌","𝐆","𝐓","𝐏","𝐄","𝐹","ₚ","ₑ","ᴊ","ᴋ"],
+                ["","","₉","Å","ₘ","ɪ","₄","","","∟","⟲","↻","ⁿ"],
+                ["�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�"],
+            ];
+            return CreateMappingChar(table);
+        }
+
+        function TableCharfx880btg() {
+            const table = [
+                ["�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�"],
+                ["𝒙","𝒚","𝒛","…","▲","▼","▸","₋","$","◁","&","𝑡","ᴛ","ₜ","ₕ","₅"],
+                [" ","!",'"',"#","×","%","÷","'","(",")","⋅","+",",","-",".","/"],
+                ["0","1","2","3","4","5","6","7","8","9",":",";","<","=",">","?"],
+                ["@","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"],
+                ["P","Q","R","S","T","U","V","W","X","Y","Z","[","▫","]","^","_"],
+                ["−","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"],
+                ["p","q","r","s","t","u","v","w","x","y","z","{","|","}","~","├"],
+                ["𝒊","𝒆","","","","°","ʳ","ᵍ","∠","","","","","→","∏","⇒"],
+                ["","","","⌟","≤","≠","≥","","√","∫","ᴀ","ʙ","ᴄ","ₙ","▶","◀"],
+                ["⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹","","","","₍","₎",""],
+                ["₀","₁","₂","","ꜰ","ɴ","ᴘ","","𝗔","𝗕","𝗖","𝗗","𝗘","𝗙","𝗣","▷"],
+                ["∑","𝛼","𝛾","𝜀","𝜃","𝜆","𝜇","𝜋","𝜎","𝜙","ℓ","ℏ","▮","▯","₃","＿"],
+                ["𝐟","𝐩","𝐧","𝝁","𝐦","𝐤","𝐌","𝐆","𝐓","𝐏","𝐄","𝐹","ₚ","ₑ","ᴊ","ᴋ"],
+                ["","","₉","Å","ₘ","ɪ","₄"," "," ","∟","⟲","↻","ⁿ"],
+                ["�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�", "�"],
+            ];
+            return CreateMappingChar(table);
+        }
+
+        function CreateMappingToken(table) {
+            const mapping = {};
+
+            for (let row = 0; row < table.length; row++) {
+                for (let col = 0; col < table[row].length; col++) {
+                    const value = table[row][col];
+                    const key = (row * 16 + col).toString(16).padStart(2, '0').toUpperCase();
+                    mapping[key] = (value === '@' || value === '(') ? `<${key}>` : value;
+                }
+            }
+
+            return mapping;
+        }
+
+        function CreateMappingChar(table) {
+            const mapping = {};
+
+            for (let row = 0; row < table.length; row++) {
+                for (let col = 0; col < table[row].length; col++) {
+                    const value = table[row][col];
+                    const key = (row * 16 + col).toString(16).padStart(2, '0').toUpperCase();
+                    mapping[key] = value;
+                }
+            }
+
+            return mapping;
+        }
+
+        function h2t(tableType = 'fx580vnx') {
+            const input = document.getElementById('hexInput').value.replace(/[^0-9a-fA-F]/g, '').toUpperCase();
+            const mapping = tableType === 'fx880btg' ? TableTokenfx880btg() : TableTokenfx580vnx();
+            const result = [];
+
+            for (let i = 0; i < input.length;) {
+                let code = input.slice(i, i + 2);
+                const key = code.toUpperCase();
+
+                if (code[0] === 'F' && i + 4 <= input.length) {
+                    const extended = input.slice(i, i + 4).toUpperCase();
+                    result.push(`<${extended}>`);
+                    i += 4;
+                } else {
+                    if (mapping[key]) {
+                        result.push(mapping[key]);
+                    }
+                    i += 2;
+                }
+            }
+
+            document.getElementById('OutputToken').textContent = result.join(' ');
+
+            const outputBox = document.getElementById('OutputToken');
+            if (tableType === 'fx880btg') {
+                outputBox.style.fontFamily = 'CASIO-EY-Display-Font';
+            } else {
+                outputBox.style.fontFamily = 'CASIO-CY-Display-Font';
+            }
+        }
+
+        function h2c(tableType = 'fx580vnx') {
+            const input = document.getElementById('hexInput').value.replace(/[^0-9a-fA-F]/g, '').toUpperCase();
+            const mapping = tableType === 'fx880btg' ? TableCharfx880btg() : TableCharfx580vnx();
+            const result = [];
+
+            for (let i = 0; i < input.length;) {
+                let code = input.slice(i, i + 2);
+                const key = code.toUpperCase();
+
+                if (code[0] === 'F' && i + 4 <= input.length) {
+                    const extended = input.slice(i, i + 4).toUpperCase();
+                    result.push(`<${extended}>`);
+                    i += 4;
+                } else {
+                    if (mapping[key]) {
+                        result.push(mapping[key]);
+                    }
+                    i += 2;
+                }
+            }
+
+            document.getElementById('OutputChar').textContent = result.join(' ');
+
+            const outputBox = document.getElementById('OutputChar');
+            if (tableType === 'fx880btg') {
+                outputBox.style.fontFamily = 'CASIO-EY-Display-Font';
+            } else {
+                outputBox.style.fontFamily = 'CASIO-CY-Display-Font';
+            }
+        }
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

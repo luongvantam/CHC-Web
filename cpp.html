@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học C++ Cơ Bản</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .text-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+            text-align: left;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Casio Hacking Community</h1>
+        <span class="menu-toggle">☰ Menu</span>
+    </header>
+    <main>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="documents.html">Tài Liệu</a></li>
+                <li><a href="tools.html">Công Cụ Hỗ trợ</a></li>
+            </ul>
+        </nav>
+        <div class="overlay"></div>
+        <div class="content" style="text-align: left;">
+            <h2>C++ là gì?</h2>
+            <p>
+                C++ là một ngôn ngữ lập trình mạnh mẽ và phổ biến, được phát triển từ ngôn ngữ C. 
+                Nó hỗ trợ cả lập trình thủ tục và lập trình hướng đối tượng (OOP), cho phép xây dựng chương trình linh hoạt, mở rộng và dễ bảo trì.
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png" style="float: right; width: 150px; margin-left: 10px;">
+                C++ thường được dùng để phát triển phần mềm hệ thống, trình biên dịch, trò chơi điện tử, ứng dụng hiệu năng cao và nhiều lĩnh vực khác.
+                <br><br>
+                Để bắt đầu học C++, bạn cần cài trình biên dịch như <strong>GCC</strong> hoặc <strong>Visual Studio</strong>. Sau đó, bạn có thể viết và chạy chương trình bằng các IDE như Code::Blocks, Dev-C++ hoặc Visual Studio Code.
+            </p>
+
+            <h2>Các lệnh cơ bản trong C++</h2>
+            <p>Dưới đây là một số lệnh và cú pháp cơ bản cần nắm khi mới bắt đầu học C++:</p>
+            <ul>
+                <li><strong>In ra màn hình:</strong></li>
+                <div class="text-box"><pre><code>std::cout << "Hello, World!" << std::endl;</code></pre></div>
+
+                <li><strong>Nhập dữ liệu từ bàn phím:</strong></li>
+                <div class="text-box"><pre><code>std::cin >> tên_biến;</code></pre></div>
+            </ul>
+
+            <p>Ví dụ đầy đủ:</p>
+            <div class="text-box">
+            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout << "Nhập tên của bạn: ";
+    string name;
+    cin >> name;
+    cout << "Xin chào, " << name << "!" << endl;
+    return 0;
+}</code></pre>
+            </div>
+
+            <h2>Khai báo và lưu giá trị trong biến</h2>
+            <p>Trong C++, để lưu giá trị, bạn cần khai báo biến với kiểu dữ liệu tương ứng:</p>
+            <div class="text-box"><pre><code>kiểu_dữ_liệu tên_biến = giá_trị;</code></pre></div>
+
+            <p>Ví dụ:</p>
+            <div class="text-box"><pre><code>int age = 15;             // số nguyên
+float pi = 3.14;          // số thực
+char grade = 'A';         // ký tự
+string name = "Code For Casio";      // chuỗi
+bool passed = true;       // giá trị đúng/sai (true/false)</code></pre>
+            </div>
+
+            <h2>Cấu trúc điều kiện</h2>
+            <p>Sử dụng <code>if</code>, <code>else if</code>, <code>else</code> để kiểm tra điều kiện:</p>
+            <div class="text-box"><pre><code>int a = 10, b = 5;
+
+if (a > b) {
+    cout << "a lớn hơn b";
+} else if (a == b) {
+    cout << "a bằng b";
+} else {
+    cout << "a nhỏ hơn b";
+}</code></pre>
+            </div>
+
+            <h2>Vòng lặp cơ bản</h2>
+            <p>C++ hỗ trợ nhiều loại vòng lặp: <code>for</code>, <code>while</code>, <code>do while</code>. Ví dụ với vòng lặp <code>for</code>:</p>
+            <div class="text-box"><pre><code>for (int i = 1; i <= 5; i++) {
+    cout << "Lặp lần thứ: " << i << endl;
+}</code></pre>
+            </div>
+
+            <h2>Mảng (Array) trong C++</h2>
+            <p>Mảng là danh sách các phần tử cùng kiểu:</p>
+            <div class="text-box"><pre><code>int numbers[] = {1, 2, 3, 4, 5};
+
+// Duyệt mảng
+for (int i = 0; i < 5; i++) {
+    cout << numbers[i] << " ";
+}</code></pre>
+            </div>
+
+            <h2>Sử dụng hàm trong C++</h2>
+            <p>Hàm là khối mã thực hiện một chức năng cụ thể. Cú pháp:</p>
+            <div class="text-box"><pre><code>kiểu_trả_về tên_hàm(tham_số) {
+    // nội dung
+    return giá_trị;
+}</code></pre>
+            </div>
+
+            <p>Ví dụ hàm tính tổng:</p>
+            <div class="text-box"><pre><code>int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int sum = add(3, 4);
+    cout << "Tổng là: " << sum;
+    return 0;
+}</code></pre>
+            </div>
+
+            <h2>Thư viện và cú pháp thường dùng</h2>
+            <ul>
+                <li><code>#include &lt;iostream&gt;</code>: dùng để nhập xuất</li>
+                <li><code>using namespace std;</code>: giúp dùng `cout`, `cin` mà không cần `std::`</li>
+                <li><code>return 0;</code>: kết thúc chương trình</li>
+            </ul>
+
+            <h2>Kết luận</h2>
+            <p>
+                C++ là ngôn ngữ rất mạnh, phù hợp cả cho người mới học và lập trình viên chuyên nghiệp. Hãy bắt đầu bằng những phần cơ bản, thực hành nhiều và kiên nhẫn.
+                Bạn có thể tìm thêm bài tập trên các trang như <a href="https://www.hackerrank.com/domains/cpp">HackerRank</a>, <a href="https://www.w3schools.com/cpp/">W3Schools</a> để luyện tập thêm.
+            </p>
+        </div>
+    </main>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
